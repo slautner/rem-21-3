@@ -62,23 +62,16 @@ public class StudentDB {
         this.students = newStudents;
     }
 
-    public void remove(Student removeStudent) {
-        int amountOfStudentsToBeRemoved = 0;
+    public void remove(Student studentToRemove) {
 
-        int currentStudentsAmount = this.students.length;
-        for (int i = 0; i < currentStudentsAmount; i++) {
-            // count the occurrences of the student to be removed found into the current students array
-            Student student = this.students[i];
-            if (student.equals(removeStudent)) {
-                amountOfStudentsToBeRemoved++;
-            }
-        }
+        int amountOfStudentsToBeRemoved = countStudents(studentToRemove);
 
         if (amountOfStudentsToBeRemoved == 0) {
             // the student to be removed is currently not in the student db - nothing to do
             return;
         }
 
+        int currentStudentsAmount = this.students.length;
         // new students array size is the old size reduced by the amount of students found to be removed
         Student[] newStudents = new Student[currentStudentsAmount - amountOfStudentsToBeRemoved];
 
@@ -87,7 +80,7 @@ public class StudentDB {
             // iterate over current student list and copy only
             // those students that are not equal to the student to be removed
             Student student = this.students[i];
-            if (!student.equals(removeStudent)) {
+            if (!student.equals(studentToRemove)) {
                 newStudents[indexNewStudents] = student;
                 indexNewStudents++;
             }
@@ -96,5 +89,16 @@ public class StudentDB {
         // new students array is filled with old students reduced by the one should ne removed
         // assign new array as the new "state" of the StudentDB
         this.students = newStudents;
+    }
+
+    private int countStudents(Student studentToCount) {
+        int count = 0;
+        for (int i = 0; i < this.students.length; i++) {
+            Student student = this.students[i];
+            if (student.equals(studentToCount)) {
+                count++;
+            }
+        }
+        return count;
     }
 }
