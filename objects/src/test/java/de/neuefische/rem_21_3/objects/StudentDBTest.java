@@ -12,93 +12,90 @@ class StudentDBTest {
     public void testSetupDBWithoutAnyStudents() {
         // GIVEN
         // init db with empty array
-        int expectedAMountOfStudentsInDB = 0;
-
-        // WHEN
         Student[] students = {  /* students .... */};
         StudentDB studentDB = new StudentDB(students);
 
-        // THEN
+        // WHEN
         int actualAmountOfStudents = studentDB.list().length;
+
+        // THEN
+        int expectedAMountOfStudentsInDB = 0;
         assertEquals(expectedAMountOfStudentsInDB, actualAmountOfStudents);
     }
 
     @Test
     public void testSetupDBWithStudentsLength() {
+        // GIVEN
+        // init db with non empty array
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
-
-        // GIVEN
-        // init db with empty array
-        int expectedAMountOfStudentsInDB = 2;
-
-        // WHEN
         Student[] students = {studentKlaus, studentMarie};
         StudentDB studentDB = new StudentDB(students);
 
-        // THEN
+        // WHEN
         int actualAmountOfStudents = studentDB.list().length;
+
+        // THEN
+        int expectedAMountOfStudentsInDB = 2;
         assertEquals(expectedAMountOfStudentsInDB, actualAmountOfStudents);
     }
 
     @Test
     public void testSetupDBWithStudentsEquals() {
         // GIVEN
-        Student[] expectedStudents = {new Student("Klaus"), new Student("Marie")};
-
-        // WHEN
         Student[] dbStudents = {new Student("Klaus"), new Student("Marie")};
         StudentDB studentDB = new StudentDB(dbStudents);
 
-        // THEN
+        // WHEN
         Student[] actualStudents = studentDB.list();
+
+        // THEN
+        Student[] expectedStudents = {new Student("Klaus"), new Student("Marie")};
         assertArrayEquals(expectedStudents, actualStudents);
     }
 
     @Test
     public void testStudentDBWithStudentsToString() {
+        // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
-
-        // GIVEN
-        String expectedStudentString = "[id=-1, name=Klaus],[id=-1, name=Marie]";
-
-        // WHEN
         Student[] students = {studentKlaus, studentMarie};
         StudentDB studentDB = new StudentDB(students);
 
-        // THEN
+        // WHEN
         String actualStudentDBString = studentDB.toString();
 
+        // THEN
+        String expectedStudentString = "[id=-1, name=Klaus],[id=-1, name=Marie]";
         assertEquals(expectedStudentString, actualStudentDBString);
     }
 
     @Test
     public void testRandomStudent() {
+        // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
-
-        // GIVEN
         Student[] students = {studentKlaus, studentMarie, studentJohn};
         StudentDB studentDB = new StudentDB(students);
 
-        // WHEN
-
-        // THEN
         for (int i = 0; i < 100; i++) {
+
+            // WHEN
             Student actualRandomStudent = studentDB.getRandomStudent();
+
+            // THEN
             assertNotNull(actualRandomStudent);
+
         }
     }
 
     @Test
     public void testAddStudent() {
+        // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
-
-        // GIVEN
         Student[] students = {studentKlaus, studentMarie, studentJohn};
         StudentDB studentDB = new StudentDB(students);
         assertEquals(3, studentDB.list().length);
@@ -115,12 +112,11 @@ class StudentDBTest {
 
     @Test
     public void testRemoveStudent() {
+        // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
         Student studentKlara = new Student("Klara");
-
-        // GIVEN
         Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
         StudentDB studentDB = new StudentDB(students);
         assertEquals(4, studentDB.list().length);
@@ -137,12 +133,11 @@ class StudentDBTest {
 
     @Test
     public void testRemoveUnknownStudent() {
+        // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
         Student studentKlara = new Student("Klara");
-
-        // GIVEN
         Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
         StudentDB studentDB = new StudentDB(students);
         assertEquals(4, studentDB.list().length);
