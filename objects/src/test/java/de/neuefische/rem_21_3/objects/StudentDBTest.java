@@ -98,16 +98,15 @@ class StudentDBTest {
         Student studentJohn = new Student("John");
         Student[] students = {studentKlaus, studentMarie, studentJohn};
         StudentDB studentDB = new StudentDB(students);
-        assertEquals(3, studentDB.list().length);
 
         // WHEN
         Student studentKlara = new Student("Klara");
         studentDB.add(studentKlara);
+        Student[] actual = studentDB.list();
 
         // THEN
-        assertEquals(4, studentDB.list().length);
-        assertEquals(studentKlaus, studentDB.list()[0]);
-        assertEquals(studentKlara, studentDB.list()[studentDB.list().length - 1]);
+        Student[] expected = {studentKlaus, studentMarie, studentJohn, studentKlara};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -119,16 +118,14 @@ class StudentDBTest {
         Student studentKlara = new Student("Klara");
         Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
         StudentDB studentDB = new StudentDB(students);
-        assertEquals(4, studentDB.list().length);
 
         // WHEN
         studentDB.remove(studentMarie);
+        Student[] actual = studentDB.list();
 
         // THEN
-        assertEquals(3, studentDB.list().length);
-        assertEquals(studentKlaus, studentDB.list()[0]);
-        assertEquals(studentJohn, studentDB.list()[1]);
-        assertEquals(studentKlara, studentDB.list()[studentDB.list().length - 1]);
+        Student[] expected = {studentKlaus, studentJohn, studentKlara};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
@@ -140,15 +137,14 @@ class StudentDBTest {
         Student studentKlara = new Student("Klara");
         Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
         StudentDB studentDB = new StudentDB(students);
-        assertEquals(4, studentDB.list().length);
 
         // WHEN
         Student studentUnknown = new Student("Unknown");
         studentDB.remove(studentUnknown);
+        Student[] actual = studentDB.list();
 
         // THEN
-        assertEquals(4, studentDB.list().length);
-        assertEquals(studentKlaus, studentDB.list()[0]);
-        assertEquals(studentKlara, studentDB.list()[studentDB.list().length - 1]);
+        Student[] expected = {studentKlaus, studentMarie, studentJohn, studentKlara};
+        assertArrayEquals(expected, actual);
     }
 }
