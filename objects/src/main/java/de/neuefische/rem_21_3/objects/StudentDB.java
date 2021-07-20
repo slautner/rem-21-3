@@ -63,15 +63,15 @@ public class StudentDB {
     }
 
     public void remove(Student studentToRemove) {
-        int currentStudentsAmount = this.students.length;
-        int amountOfStudentsToBeRemoved = countStudents(studentToRemove);
 
+        int amountOfStudentsToBeRemoved = countStudents(studentToRemove);
 
         if (amountOfStudentsToBeRemoved == 0) {
             // the student to be removed is currently not in the student db - nothing to do
             return;
         }
 
+        int currentStudentsAmount = this.students.length;
         // new students array size is the old size reduced by the amount of students found to be removed
         Student[] newStudents = new Student[currentStudentsAmount - amountOfStudentsToBeRemoved];
 

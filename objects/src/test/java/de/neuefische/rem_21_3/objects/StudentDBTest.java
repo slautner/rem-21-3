@@ -10,12 +10,6 @@ class StudentDBTest {
 
     @Test
     public void testSetupDBWithoutAnyStudents() {
-//        String[] longArrayAssignment = new String[]{"foo", "bar"};
-//        String[] shortArrayAssignment = {"foo", "bar"};
-//        String[] singleAssignmentArrayInit = new String[2];
-//        singleAssignmentArrayInit[0] = "foo";
-//        singleAssignmentArrayInit[1] = "bar";
-
         // GIVEN
         // init db with empty array
         int expectedAMountOfStudentsInDB = 0;
