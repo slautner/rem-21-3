@@ -3,9 +3,22 @@ package de.neuefische.rem_21_3.objects;
 
 public class Student {
 
+    /**
+     * an constant integer value that means that no id has been set so far for a student
+     */
     public static final int UNDEFINED = -1;
 
+    /**
+     * declare "final" to ensure the name is mandatory and must be set during creation of the object in the constructor.
+     * <p>
+     * please note: if a property is declared as final, no setter will be declared.
+     * Once an object is initialized, a final property can not be modified,
+     */
     private final String name;
+
+    /**
+     * the unique id of the student, will be used later, initial set to an "undefined" value.
+     */
     private int id = UNDEFINED;
 
     public Student(String name) {
@@ -26,7 +39,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "[id=" + id + ", name=" + name + "]";
+        return "[id=" + getId() + ", name=" + getName() + "]";
     }
 
     @Override
