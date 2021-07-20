@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class StudentDBTest {
 
@@ -79,15 +80,38 @@ class StudentDBTest {
         Student[] students = {studentKlaus, studentMarie, studentJohn};
         StudentDB studentDB = new StudentDB(students);
 
-        for (int i = 0; i < 100; i++) {
+        boolean klausSelected = false;
+        boolean marieSelected = false;
+        boolean johnSelected = false;
 
-            // WHEN
+        // WHEN - repeated calls to random student to prove that any of the students will be selected at least once
+        int maxLoops = 100;
+
+        int i = maxLoops;
+        while (!klausSelected || !marieSelected || !johnSelected) {
             Student actualRandomStudent = studentDB.getRandomStudent();
 
             // THEN
             assertNotNull(actualRandomStudent);
+            if (!klausSelected) {
+                klausSelected = studentKlaus.equals(actualRandomStudent);
+            }
+            if (!marieSelected) {
+                marieSelected = studentMarie.equals(actualRandomStudent);
+            }
+            if (!johnSelected) {
+                johnSelected = studentJohn.equals(actualRandomStudent);
+            }
 
+            --i;
+
+            if (i == 0) {
+                // if students where not randomly selected the "while" will loop infinitely, add additional break
+                fail("Some students not randomly selected within " + maxLoops + " invocations");
+            }
         }
+
+        // THEN - At least any of the students should be randomly selected
     }
 
     @Test
