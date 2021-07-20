@@ -17,10 +17,13 @@ public class StudentDB {
     public String toString() {
         String toString = "";
         for (int i = 0; i < students.length; i++) {
-            Student student = students[i];
-            toString += student.toString() + ",";
-        }
+            if (i > 0) {
+                toString += ",";
+            }
 
+            Student student = students[i];
+            toString += student.toString();
+        }
         return toString;
     }
 }

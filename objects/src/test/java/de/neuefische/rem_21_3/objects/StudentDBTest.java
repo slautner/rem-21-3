@@ -66,7 +66,7 @@ class StudentDBTest {
         Student studentMarie = new Student("Marie");
 
         // GIVEN
-        String expectedStudentString = "[id=-1, name=Klaus],[id=-1, name=Marie],";
+        String expectedStudentString = "[id=-1, name=Klaus],[id=-1, name=Marie]";
 
         // WHEN
         Student[] students = {studentKlaus, studentMarie};
