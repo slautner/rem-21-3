@@ -7,6 +7,5 @@ public interface Dive {
         System.out.println("I'm diving " + getDepthInMeters() + " meters into the see");
     }
 
-
     int getDepthInMeters();
 }
