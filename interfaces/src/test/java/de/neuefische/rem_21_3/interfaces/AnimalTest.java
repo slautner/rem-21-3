@@ -44,7 +44,7 @@ class AnimalTest {
         seaGull.fly();
 
         Bird seaGullBird = seaGull;
-        //seaGullBird.dive();
+        //seaGullBird.dive();  // this seaGullBird is of type Bird and Bird does not implement the dive() method
         seaGullBird.layEgg();
         seaGullBird.fly();
 
