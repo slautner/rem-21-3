@@ -28,7 +28,7 @@ class AnimalTest {
     }
 
     @Test
-    public void testBirdLayEggs() {
+    public void testAnimalsImplementsLayEggsAndDive() {
         Bird bird = new Bird("Bird");
         bird.layEgg();
         bird.move();
