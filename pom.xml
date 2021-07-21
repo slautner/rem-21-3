@@ -13,6 +13,7 @@
         <module>objects</module>
         <module>interfaces</module>
         <module>inheritance</module>
+        <module>collections</module>
     </modules>
 
     <properties>
