@@ -7,4 +7,8 @@ public class RaceCar extends Car {
         // overwrite drive from parent class Car
         System.out.println("Im racing on the track");
     }
+
+    public void slowDown() {
+        System.out.println("He I'm a race car, I will go fast!");
+    }
 }

@@ -2,12 +2,36 @@ package de.neuefische.rem_21_3.inheritance;
 
 import org.junit.jupiter.api.Test;
 
-class RaceCarTest {
+public class RaceCarTest {
 
     @Test
     public void testDrivingRaceCar() {
         Car raceCar = new RaceCar();
         raceCar.drive();
+        raceCar.start();
+        // downcast
+        RaceCar castedRaceCar = (RaceCar) raceCar;
+        castedRaceCar.slowDown();
+
+        // ups - ClassCastException!
+        // FlyingCar castedFlyingCar = (FlyingCar) raceCar;
+
+        RaceCar realRaceCar = new RaceCar();
+        realRaceCar.drive();
+        realRaceCar.start();
+        realRaceCar.slowDown();
+
+        CanStart canStart = new RaceCar();
+        canStart.start();
+        // downcast
+        RaceCar castedCanStart = (RaceCar) canStart;
+        castedCanStart.slowDown();
+
+        CanStart rocketCanStart = new Rocket();
+        rocketCanStart.start();
+
+        // ups - ClassCastException!
+        // RaceCar cannotCastRaceCar = (RaceCar) rocketCanStart;
     }
 
     @Test
