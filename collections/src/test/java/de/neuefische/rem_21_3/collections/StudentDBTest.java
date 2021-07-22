@@ -31,8 +31,8 @@ class StudentDBTest {
     public void testSetupDBWithStudentsLength() {
         // GIVEN
         // init db with non empty array
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie);
         StudentDB studentDB = new StudentDB(students);
 
@@ -47,22 +47,22 @@ class StudentDBTest {
     @Test
     public void testSetupDBWithStudentsEquals() {
         // GIVEN
-        List<Student> dbStudents = Arrays.asList(new Student("Klaus"), new Student("Marie"));
+        List<Student> dbStudents = Arrays.asList(new Student("Klaus",1), new Student("Marie",2));
         StudentDB studentDB = new StudentDB(dbStudents);
 
         // WHEN
         List<Student> actualStudents = studentDB.list();
 
         // THEN
-        List<Student> expectedStudents = Arrays.asList(new Student("Klaus"), new Student("Marie"));
+        List<Student> expectedStudents = Arrays.asList(new Student("Klaus",1), new Student("Marie",2));
         assertEquals(expectedStudents, actualStudents);
     }
 
     @Test
     public void testStudentDBWithStudentsToString() {
         // GIVEN
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
+        Student studentKlaus = new Student("Klaus",1);
+        Student studentMarie = new Student("Marie",2);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie);
         StudentDB studentDB = new StudentDB(students);
 
@@ -70,16 +70,16 @@ class StudentDBTest {
         String actualStudentDBString = studentDB.toString();
 
         // THEN
-        String expectedStudentString = "[id=-1, name=Klaus],[id=-1, name=Marie]";
+        String expectedStudentString = "[id=1, name=Klaus],[id=2, name=Marie]";
         assertEquals(expectedStudentString, actualStudentDBString);
     }
 
     @Test
     public void testRandomStudent() {
         // GIVEN
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
-        Student studentJohn = new Student("John");
+        Student studentKlaus = new Student("Klaus",1);
+        Student studentMarie = new Student("Marie",2);
+        Student studentJohn = new Student("John",3);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
@@ -120,14 +120,14 @@ class StudentDBTest {
     @Test
     public void testAddStudent() {
         // GIVEN
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
-        Student studentJohn = new Student("John");
+        Student studentKlaus = new Student("Klaus",1);
+        Student studentMarie = new Student("Marie",2);
+        Student studentJohn = new Student("John",3);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        Student studentKlara = new Student("Klara");
+        Student studentKlara = new Student("Klara",4);
         studentDB.add(studentKlara);
         List<Student> actual = studentDB.list();
 
@@ -139,10 +139,10 @@ class StudentDBTest {
     @Test
     public void testRemoveStudent() {
         // GIVEN
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
-        Student studentJohn = new Student("John");
-        Student studentKlara = new Student("Klara");
+        Student studentKlaus = new Student("Klaus",1);
+        Student studentMarie = new Student("Marie",2);
+        Student studentJohn = new Student("John",3);
+        Student studentKlara = new Student("Klara",4);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
@@ -158,15 +158,15 @@ class StudentDBTest {
     @Test
     public void testRemoveUnknownStudent() {
         // GIVEN
-        Student studentKlaus = new Student("Klaus");
-        Student studentMarie = new Student("Marie");
-        Student studentJohn = new Student("John");
-        Student studentKlara = new Student("Klara");
+        Student studentKlaus = new Student("Klaus",1);
+        Student studentMarie = new Student("Marie",2);
+        Student studentJohn = new Student("John",3);
+        Student studentKlara = new Student("Klara",4);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        Student studentUnknown = new Student("Unknown");
+        Student studentUnknown = new Student("Unknown",5);
         studentDB.remove(studentUnknown);
         List<Student> actual = studentDB.list();
 

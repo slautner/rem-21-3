@@ -1,50 +1,54 @@
 package de.neuefische.rem_21_3.collections;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class StudentDB {
 
-    private List<Student> students;
+    private Map<Integer, Student> students;
 
     public StudentDB(List<Student> students) {
-        this.students = new ArrayList<>(students);
+        this.students = new HashMap<>();
+        for (Student student : students) {
+            add(student);
+        }
     }
 
     public List<Student> list() {
-        return this.students;
+        return new ArrayList<>(students.values());
     }
 
     @Override
     public String toString() {
         String toString = "";
-        for (int i = 0; i < this.students.size(); i++) {
-            if (i > 0) {
+        boolean firstEntry = true;
+        for (Student student : students.values()) {
+            if (firstEntry) {
+                firstEntry = false;
+            } else {
                 toString += ",";
             }
-
-            Student student = this.students.get(i);
             toString += student.toString();
         }
+
         return toString;
     }
 
     public Student getRandomStudent() {
-        int maxStudentArrayIndex = this.students.size();
+        List<Student> studentList = list();
+        int maxStudentArrayIndex = studentList.size();
         if (maxStudentArrayIndex > 0) {
             int randomIndex = new Random().nextInt(maxStudentArrayIndex);
-            return this.students.get(randomIndex);
+            return studentList.get(randomIndex);
         }
         return null;
     }
 
     public void add(Student student) {
-        this.students.add(student);
+        this.students.put(student.getId(), student);
     }
 
     public void remove(Student studentToRemove) {
-        this.students.remove(studentToRemove);
+        this.students.remove(studentToRemove.getId());
     }
 }
