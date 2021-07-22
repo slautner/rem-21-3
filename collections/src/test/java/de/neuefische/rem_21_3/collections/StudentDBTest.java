@@ -2,7 +2,10 @@ package de.neuefische.rem_21_3.collections;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -13,11 +16,11 @@ class StudentDBTest {
     public void testSetupDBWithoutAnyStudents() {
         // GIVEN
         // init db with empty array
-        Student[] students = {  /* students .... */};
+        List<Student> students = Collections.emptyList();
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        int actualAmountOfStudents = studentDB.list().length;
+        int actualAmountOfStudents = studentDB.list().size();
 
         // THEN
         int expectedAMountOfStudentsInDB = 0;
@@ -30,11 +33,11 @@ class StudentDBTest {
         // init db with non empty array
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
-        Student[] students = {studentKlaus, studentMarie};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        int actualAmountOfStudents = studentDB.list().length;
+        int actualAmountOfStudents = studentDB.list().size();
 
         // THEN
         int expectedAMountOfStudentsInDB = 2;
@@ -44,15 +47,15 @@ class StudentDBTest {
     @Test
     public void testSetupDBWithStudentsEquals() {
         // GIVEN
-        Student[] dbStudents = {new Student("Klaus"), new Student("Marie")};
+        List<Student> dbStudents = Arrays.asList(new Student("Klaus"), new Student("Marie"));
         StudentDB studentDB = new StudentDB(dbStudents);
 
         // WHEN
-        Student[] actualStudents = studentDB.list();
+        List<Student> actualStudents = studentDB.list();
 
         // THEN
-        Student[] expectedStudents = {new Student("Klaus"), new Student("Marie")};
-        assertArrayEquals(expectedStudents, actualStudents);
+        List<Student> expectedStudents = Arrays.asList(new Student("Klaus"), new Student("Marie"));
+        assertEquals(expectedStudents, actualStudents);
     }
 
     @Test
@@ -60,7 +63,7 @@ class StudentDBTest {
         // GIVEN
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
-        Student[] students = {studentKlaus, studentMarie};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
@@ -77,7 +80,7 @@ class StudentDBTest {
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
-        Student[] students = {studentKlaus, studentMarie, studentJohn};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
         boolean klausSelected = false;
@@ -120,17 +123,17 @@ class StudentDBTest {
         Student studentKlaus = new Student("Klaus");
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
-        Student[] students = {studentKlaus, studentMarie, studentJohn};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
         Student studentKlara = new Student("Klara");
         studentDB.add(studentKlara);
-        Student[] actual = studentDB.list();
+        List<Student> actual = studentDB.list();
 
         // THEN
-        Student[] expected = {studentKlaus, studentMarie, studentJohn, studentKlara};
-        assertArrayEquals(expected, actual);
+        List<Student> expected = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -140,16 +143,16 @@ class StudentDBTest {
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
         Student studentKlara = new Student("Klara");
-        Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
         studentDB.remove(studentMarie);
-        Student[] actual = studentDB.list();
+        List<Student> actual = studentDB.list();
 
         // THEN
-        Student[] expected = {studentKlaus, studentJohn, studentKlara};
-        assertArrayEquals(expected, actual);
+        List<Student> expected = Arrays.asList(studentKlaus, studentJohn, studentKlara);
+        assertEquals(expected, actual);
     }
 
     @Test
@@ -159,16 +162,16 @@ class StudentDBTest {
         Student studentMarie = new Student("Marie");
         Student studentJohn = new Student("John");
         Student studentKlara = new Student("Klara");
-        Student[] students = {studentKlaus, studentMarie, studentJohn, studentKlara};
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
         Student studentUnknown = new Student("Unknown");
         studentDB.remove(studentUnknown);
-        Student[] actual = studentDB.list();
+        List<Student> actual = studentDB.list();
 
         // THEN
-        Student[] expected = {studentKlaus, studentMarie, studentJohn, studentKlara};
-        assertArrayEquals(expected, actual);
+        List<Student> expected = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
+        assertEquals(expected, actual);
     }
 }
