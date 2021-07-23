@@ -6,26 +6,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class StudentDBTest {
 
     @Test
-    public void testSetupDBWithoutAnyStudents() throws StudentDBMustBeInitiatedWithStudentsException {
+    public void testSetupDBWithoutAnyStudents() {
         // GIVEN
         // init db with empty array
         List<Student> students = Collections.emptyList();
-        StudentDB studentDB = new StudentDB(students);
 
-        // WHEN
-        int actualAmountOfStudents = studentDB.list().size();
+        try {
+            new StudentDB(students);
 
-        // THEN
-        int expectedAMountOfStudentsInDB = 0;
-        assertEquals(expectedAMountOfStudentsInDB, actualAmountOfStudents);
+        } catch (StudentDBMustBeInitiatedWithStudentsException e) {
+            // do not init DB with empty students list
+        }
     }
 
     @Test
@@ -212,6 +213,33 @@ class StudentDBTest {
             // expected
             System.out.println(e.getMessage());
             System.out.println("Everthing is fine, NPE was expected");
+        }
+    }
+
+    @Test
+    public void testGetStudentByName() throws StudentDBMustBeInitiatedWithStudentsException {
+        // GIVEN
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
+        Student studentKlara = new Student("Klara", 4);
+        List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentKlara);
+        StudentDB studentDB = new StudentDB(students);
+
+        // WHEN
+        Optional<Student> unknownStudentOpt = studentDB.getStudentByName("Ben");
+        Optional<Student> actualStudentOpt = studentDB.getStudentByName(studentKlaus.getName());
+
+        // THEN
+        assertFalse(unknownStudentOpt.isPresent());
+
+        if (actualStudentOpt.isPresent()) {
+            Student actualStudent = actualStudentOpt.get();
+            assertEquals(studentKlaus.getName(), actualStudent.getName());
+        }
+
+        Student randomStudent = studentDB.getRandomStudent();
+        if (randomStudent != null) {
+            // ensure that student is not null - method returns null in some cases
         }
     }
 }

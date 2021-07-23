@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Random;
 
 public class StudentDB {
@@ -54,6 +55,16 @@ public class StudentDB {
             return studentList.get(randomIndex);
         }
         return null;
+    }
+
+    public Optional<Student> getStudentByName(String studentName) {
+        List<Student> studentList = list();
+        for (Student student : studentList) {
+            if (student.getName().equals(studentName)) {
+                return Optional.of(student);
+            }
+        }
+        return Optional.empty();
     }
 
     public void add(Student student) {
