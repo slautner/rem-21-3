@@ -74,6 +74,6 @@ public class OrderImpl implements Order {
 
     @Override
     public String toString() {
-        return "[id=" + id + ", products={" + products + "}";
+        return this.getClass().getSimpleName() + "[id=" + id + ", products={" + products + "}";
     }
 }

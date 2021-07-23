@@ -19,10 +19,10 @@ public class AppMain {
         AppMain appMain = new AppMain();
 
         List<Product> products = appMain.listProducts();
-        System.out.println("Current product: " + products);
+        System.out.println("Current products: " + products);
 
         Order order = appMain.createOrder(products);
-        System.out.println(order + " created");
+        System.out.println("Created: " + order);
 
         Set<Order> orders = appMain.listOrders();
         System.out.println("Current orders: " + orders);
@@ -30,7 +30,7 @@ public class AppMain {
         Optional<Order> orderOpt = appMain.getOrder(0);
         if (orderOpt.isPresent()) {
             Order orderById = orderOpt.get();
-            System.out.println("Current order id=" + orderById.getId() + " is :" + orderById);
+            System.out.println("Order by id: " + orderById);
         }
     }
 
