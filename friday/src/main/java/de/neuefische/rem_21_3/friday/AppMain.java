@@ -26,6 +26,12 @@ public class AppMain {
 
         Set<Order> orders = appMain.listOrders();
         System.out.println("Current orders: " + orders);
+
+        Optional<Order> orderOpt = appMain.getOrder(0);
+        if (orderOpt.isPresent()) {
+            Order orderById = orderOpt.get();
+            System.out.println("Current order id=" + orderById.getId() + " is :" + orderById);
+        }
     }
 
     public List<Product> listProducts() {
