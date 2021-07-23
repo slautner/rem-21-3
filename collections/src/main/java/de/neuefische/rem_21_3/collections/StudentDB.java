@@ -1,13 +1,21 @@
 package de.neuefische.rem_21_3.collections;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class StudentDB {
 
     private Map<Integer, Student> students;
 
-    public StudentDB(List<Student> students) {
+    public StudentDB(List<Student> students) throws StudentDBMustBeInitiatedWithStudentsException {
+        if (students == null || students.isEmpty()) {
+            throw new StudentDBMustBeInitiatedWithStudentsException();
+        }
+
         this.students = new HashMap<>();
         for (Student student : students) {
             add(student);
@@ -36,6 +44,10 @@ public class StudentDB {
 
     public Student getRandomStudent() {
         List<Student> studentList = list();
+        if (studentList.isEmpty()) {
+            throw new RandomStudentNotAvailableForEmptyDBRuntimeException();
+        }
+
         int maxStudentArrayIndex = studentList.size();
         if (maxStudentArrayIndex > 0) {
             int randomIndex = new Random().nextInt(maxStudentArrayIndex);

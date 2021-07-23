@@ -2,6 +2,7 @@ package de.neuefische.rem_21_3.collections;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class StudentDBTest {
 
     @Test
-    public void testSetupDBWithoutAnyStudents() {
+    public void testSetupDBWithoutAnyStudents() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
         // init db with empty array
         List<Student> students = Collections.emptyList();
@@ -28,7 +29,7 @@ class StudentDBTest {
     }
 
     @Test
-    public void testSetupDBWithStudentsLength() {
+    public void testSetupDBWithStudentsLength() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
         // init db with non empty array
         Student studentKlaus = new Student("Klaus", 1);
@@ -45,24 +46,24 @@ class StudentDBTest {
     }
 
     @Test
-    public void testSetupDBWithStudentsEquals() {
+    public void testSetupDBWithStudentsEquals() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        List<Student> dbStudents = Arrays.asList(new Student("Klaus",1), new Student("Marie",2));
+        List<Student> dbStudents = Arrays.asList(new Student("Klaus", 1), new Student("Marie", 2));
         StudentDB studentDB = new StudentDB(dbStudents);
 
         // WHEN
         List<Student> actualStudents = studentDB.list();
 
         // THEN
-        List<Student> expectedStudents = Arrays.asList(new Student("Klaus",1), new Student("Marie",2));
+        List<Student> expectedStudents = Arrays.asList(new Student("Klaus", 1), new Student("Marie", 2));
         assertEquals(expectedStudents, actualStudents);
     }
 
     @Test
-    public void testStudentDBWithStudentsToString() {
+    public void testStudentDBWithStudentsToString() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        Student studentKlaus = new Student("Klaus",1);
-        Student studentMarie = new Student("Marie",2);
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie);
         StudentDB studentDB = new StudentDB(students);
 
@@ -75,11 +76,11 @@ class StudentDBTest {
     }
 
     @Test
-    public void testRandomStudent() {
+    public void testRandomStudent() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        Student studentKlaus = new Student("Klaus",1);
-        Student studentMarie = new Student("Marie",2);
-        Student studentJohn = new Student("John",3);
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
+        Student studentJohn = new Student("John", 3);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
@@ -118,16 +119,16 @@ class StudentDBTest {
     }
 
     @Test
-    public void testAddStudent() {
+    public void testAddStudent() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        Student studentKlaus = new Student("Klaus",1);
-        Student studentMarie = new Student("Marie",2);
-        Student studentJohn = new Student("John",3);
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
+        Student studentJohn = new Student("John", 3);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        Student studentKlara = new Student("Klara",4);
+        Student studentKlara = new Student("Klara", 4);
         studentDB.add(studentKlara);
         List<Student> actual = studentDB.list();
 
@@ -137,12 +138,12 @@ class StudentDBTest {
     }
 
     @Test
-    public void testRemoveStudent() {
+    public void testRemoveStudent() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        Student studentKlaus = new Student("Klaus",1);
-        Student studentMarie = new Student("Marie",2);
-        Student studentJohn = new Student("John",3);
-        Student studentKlara = new Student("Klara",4);
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
+        Student studentJohn = new Student("John", 3);
+        Student studentKlara = new Student("Klara", 4);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
@@ -155,23 +156,62 @@ class StudentDBTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    public void testRemoveUnknownStudent() {
+    @Test // do not handle any checked exceptions
+    public void testRemoveUnknownStudent() throws StudentDBMustBeInitiatedWithStudentsException {
         // GIVEN
-        Student studentKlaus = new Student("Klaus",1);
-        Student studentMarie = new Student("Marie",2);
-        Student studentJohn = new Student("John",3);
-        Student studentKlara = new Student("Klara",4);
+        Student studentKlaus = new Student("Klaus", 1);
+        Student studentMarie = new Student("Marie", 2);
+        Student studentJohn = new Student("John", 3);
+        Student studentKlara = new Student("Klara", 4);
         List<Student> students = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         StudentDB studentDB = new StudentDB(students);
 
         // WHEN
-        Student studentUnknown = new Student("Unknown",5);
+        Student studentUnknown = new Student("Unknown", 5);
         studentDB.remove(studentUnknown);
         List<Student> actual = studentDB.list();
 
         // THEN
         List<Student> expected = Arrays.asList(studentKlaus, studentMarie, studentJohn, studentKlara);
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetNameFromRandomStudentEmptyDB() {
+        // GIVEN
+        List<Student> students = new ArrayList<>();
+
+        StudentDB studentDB = null;
+        try {
+            studentDB = new StudentDB(students);
+
+        } catch (StudentDBMustBeInitiatedWithStudentsException e) {
+            // handle checked exception but do not fix and assigned a valid StudentDB
+            System.out.println(e.getMessage());
+        }
+
+        Student student = null;
+        try {
+            // WHEN
+            student = studentDB.getRandomStudent();
+
+        } catch (RandomStudentNotAvailableForEmptyDBRuntimeException e) {
+            System.out.println(e.getMessage());
+
+        } catch (NullPointerException npe) {
+            // in case of studentDB was not properly initiated
+            System.out.println(npe.getMessage());
+        }
+
+        // THEN
+        try {
+            student.getName(); // this line will cause a system NULL execution -> Java will throw a NullPointerException (NPE)
+            fail("Null is expected for a student, when studentDB is empty and a random Student will be picked");
+
+        } catch (NullPointerException e) {
+            // expected
+            System.out.println(e.getMessage());
+            System.out.println("Everthing is fine, NPE was expected");
+        }
     }
 }
