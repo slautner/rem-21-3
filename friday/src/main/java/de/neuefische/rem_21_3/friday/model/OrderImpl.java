@@ -7,6 +7,7 @@ import java.util.Set;
 
 public class OrderImpl implements Order {
 
+    // use of Set<Product> means that an order must not contain duplicated products (Product.equals and hashCode)
     private final Set<Product> products = new HashSet<>();
     private final Integer id;
 
@@ -64,16 +65,16 @@ public class OrderImpl implements Order {
         }
 
         OrderImpl order = (OrderImpl) o;
-        return Objects.equals(id, order.id);
+        return Objects.equals(this.getId(), order.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "[id=" + id + ", products={" + products + "}";
+        return this.getClass().getSimpleName() + "[id=" + getId() + ", products={" + getProducts() + "}";
     }
 }

@@ -36,16 +36,16 @@ public abstract class BaseProduct {
         }
 
         BaseProduct that = (BaseProduct) o;
-        return Objects.equals(id, that.id);
+        return Objects.equals(this.getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "[id=" + id + ", name=" + name + "]";
+        return this.getClass().getSimpleName() + "[id=" + getId() + ", name=" + getName() + "]";
     }
 }

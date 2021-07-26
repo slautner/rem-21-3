@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class OrderService {
 
-    private OrderDB orderDB = new OrderDB();
+    private final OrderDB orderDB = new OrderDB();
 
     public Order createNew() {
         return OrderImpl.createEmpty();
@@ -24,8 +24,7 @@ public class OrderService {
             throw new IllegalStateException("An order without any products must not been added");
         }
 
-        OrderImpl orderToAdd = OrderImpl.create(orderDB.nextId(), order);
-
+        Order orderToAdd = OrderImpl.create(orderDB.nextId(), order);
         return orderDB.add(orderToAdd);
     }
 

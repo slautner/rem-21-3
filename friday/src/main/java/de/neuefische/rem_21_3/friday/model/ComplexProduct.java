@@ -19,6 +19,6 @@ public class ComplexProduct extends BaseProduct implements Product {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + "[id=" + getId() + ", name=" + getName() + ", addStuff" + additionalStuff + "]";
+        return this.getClass().getSimpleName() + "[id=" + getId() + ", name=" + getName() + ", addStuff" + getAdditionalStuff() + "]";
     }
 }
