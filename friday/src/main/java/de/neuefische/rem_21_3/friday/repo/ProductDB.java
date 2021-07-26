@@ -13,6 +13,10 @@ public class ProductDB {
     private final Map<Integer, Product> products = new HashMap<>();
 
     public ProductDB add(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product to add must not be null");
+        }
+
         products.put(product.getId(), product);
         return this;
     }
